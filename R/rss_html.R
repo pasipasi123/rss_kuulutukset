@@ -108,13 +108,13 @@ tviitit <- koonti %>%
   transmute(liitteet = liitteet != 0,
             tviitti, liitetviitti)
 
-yesterday <- readRDS("../yesterday.RDS")
+yesterday <- readRDS("yesterday.RDS")
 
 stopifnot((tviitit %>% anti_join(yesterday) %>% nrow()) > 0)
 
 source("R/twitter.R")
 
-saveRDS(tviitit, "../yesterday.RDS")
+saveRDS(tviitit, "yesterday.RDS")
 
 
 
