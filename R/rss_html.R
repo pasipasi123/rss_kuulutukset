@@ -94,7 +94,7 @@ koonti <- kaavat %>%
 stopifnot(nrow(koonti) > 0)
 
 tviitit <- koonti %>%
-  mutate(naht = str_replace(naht_proj, "-", "–")) %>%
+  mutate(naht_proj = str_replace(naht_proj, "-", "–")) %>%
   mutate(tviitti = paste0(otsikko, ". ", proj_nrot,
                           if_else(naht_proj == "",
                                   "",
