@@ -60,6 +60,10 @@ kuul_pdfs <- list.files() %>%
   map(str_replace, "\r", "") %>%
   map(str_trim)
 
+list.files() %>%
+  str_subset("kaavakuu") %>%
+  walk(file.remove)
+
 proj_nrot <- kuul_pdfs %>%
   map(str_c, collapse = " ") %>%
   # map(str_extract, pattern = "(?<=kohtaan )[[:digit:][-]]++")
@@ -112,7 +116,5 @@ source("R/twitter.R")
 
 saveRDS(tviitit, "../yesterday.RDS")
 
-list.files() %>%
-  str_subset("kaavakuu") %>%
-  walk(file.remove)
+
 
