@@ -51,7 +51,7 @@ stopifnot(nrow(kaavat) > 0)
 
 kaavat %>%
   mutate(filename = paste0("kaavakuulutus", row_number(), ".pdf")) %>%
-  pwalk(~ download.file(..6, ..8, method = "curl"))
+  pwalk(~ download.file(..6, ..8, method = "auto"))
 
 kuul_pdfs <- list.files() %>%
   str_subset("kaavakuu") %>%
@@ -104,13 +104,13 @@ tviitit <- koonti %>%
   transmute(liitteet = liitteet != 0,
             tviitti, liitetviitti)
 
-yesterday <- readRDS("yesterday.RDS")
+yesterday <- readRDS("../yesterday.RDS")
 
 stopifnot((tviitit %>% anti_join(yesterday) %>% nrow()) > 0)
 
 source("R/twitter.R")
 
-saveRDS(tviitit, "yesterday.RDS")
+saveRDS(tviitit, "../yesterday.RDS")
 
 list.files() %>%
   str_subset("kaavakuu") %>%

@@ -2,7 +2,7 @@
 
 library(twitteR)
 
-use_oauth_token(readRDS("token.rds"))
+use_oauth_token(readRDS("../token.rds"))
 
 twiitti_fun <- function(tviitti, liitetviitti, liitteet) {
   if (liitteet) {
