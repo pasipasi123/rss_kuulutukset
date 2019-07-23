@@ -97,6 +97,8 @@ koonti <- kaavat %>%
 
 stopifnot(nrow(koonti) > 0)
 
+yesterday <- readRDS("yesterday.RDS")
+
 tviitit <- koonti %>%
   mutate(naht_proj = str_replace(naht_proj, "-", "–")) %>%
   mutate(tviitti = paste0(otsikko, ". ", proj_nrot,
@@ -106,11 +108,10 @@ tviitit <- koonti %>%
                           ". Projektikortti: ", kortti_url, ". Kuulutus: ", item_link)) %>%
   mutate(liitetviitti = paste0("Kuulutuksen liitteet: ", liite_url)) %>%
   transmute(liitteet = liitteet != 0,
-            tviitti, liitetviitti)
+            tviitti, liitetviitti) %>%
+  anti_join(yesterday)
 
-yesterday <- readRDS("yesterday.RDS")
-
-stopifnot((tviitit %>% anti_join(yesterday) %>% nrow()) > 0)
+stopifnot(nrow(tviitit) > 0)
 
 source("R/twitter.R")
 
