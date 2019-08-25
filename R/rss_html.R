@@ -1,5 +1,6 @@
 library(pdftools)
-library(tidyRSS)
+# library(tidyRSS)
+source("R/tidy_feed.R")
 library(tidyverse)
 library(rvest)
 
@@ -33,7 +34,7 @@ kuulutus_table_20 <- kuulutus_table %>%
 
 rss <- "http://asiakirjat.ouka.fi/ktwebbin/dbisa.dll/ktwebscr/kuul_rssfeed.htm"
 
-feed <- tidyfeed(rss)
+feed <- tidyfeed_fix(rss)
 
 kuulutukset <- kuulutus_table_20 %>%
   bind_cols(item_link = feed$item_link,
