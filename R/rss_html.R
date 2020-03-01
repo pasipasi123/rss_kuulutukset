@@ -85,6 +85,12 @@ naht <- haku_htmls %>%
   map(select, naht = `Nähtävillä`) %>%
   unlist()
 
+naht <- naht %>%
+  str_replace("\r\n", "") %>%
+  str_split("  ") %>%
+  map(unique) %>%
+  unlist()
+
 kortti_urls <- haku_htmls %>%
   map(html_nodes, "a") %>%
   map(html_attr, "href") %>%
@@ -109,7 +115,7 @@ tviitit <- koonti %>%
                           ". Projektikortti: ", kortti_url, ". Kuulutus: ", item_link)) %>%
   mutate(liitetviitti = paste0("Kuulutuksen liitteet: ", liite_url)) %>%
   transmute(liitteet = liitteet != 0,
-            tviitti, liitetviitti) %>%
+            tviitti, liitetviitti) %>% pull(tviitti)
   anti_join(yesterday)
 
 stopifnot(nrow(tviitit) > 0)
@@ -117,6 +123,8 @@ stopifnot(nrow(tviitit) > 0)
 source("R/twitter.R")
 
 saveRDS(tviitit, "yesterday.RDS")
+
+quit(save = "no")
 
 
 
