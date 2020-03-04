@@ -115,7 +115,7 @@ tviitit <- koonti %>%
                           ". Projektikortti: ", kortti_url, ". Kuulutus: ", item_link)) %>%
   mutate(liitetviitti = paste0("Kuulutuksen liitteet: ", liite_url)) %>%
   transmute(liitteet = liitteet != 0,
-            tviitti, liitetviitti) %>% pull(tviitti)
+            tviitti, liitetviitti) %>%
   anti_join(yesterday)
 
 stopifnot(nrow(tviitit) > 0)
